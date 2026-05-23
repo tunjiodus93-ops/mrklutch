@@ -1,235 +1,699 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>Adetunji Odusami | Builder & Creator</title>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adetunji Odusami — Builder · Designer · AI Enthusiast</title>
+  <meta name="description" content="I turn ideas into scalable systems that perform under pressure. Web design, branding, AI integration and business strategy. Lagos, Nigeria.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
+    :root {
+      --gold:    #F5A623;
+      --gold-lt: #FDD07A;
+      --black:   #0D0D0D;
+      --white:   #FAFAF8;
+      --off:     #F4F2EE;
+      --grey:    #6B6B6B;
+      --border:  #E8E4DC;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+
     body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: #fafaf9;
-      color: #111827;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
       overflow-x: hidden;
+      cursor: none;
     }
 
-    .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.03;
-      z-index: 1;
-      background-image:
-        radial-gradient(circle at 20% 20%, #000 1px, transparent 1px);
-      background-size: 20px 20px;
+    /* ── Custom cursor ── */
+    .cursor {
+      position: fixed; width:12px; height:12px;
+      background: var(--gold); border-radius:50%;
+      pointer-events:none; z-index:9999;
+      transform:translate(-50%,-50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: multiply;
+    }
+    .cursor-ring {
+      position:fixed; width:36px; height:36px;
+      border:1.5px solid var(--gold); border-radius:50%;
+      pointer-events:none; z-index:9998;
+      transform:translate(-50%,-50%);
+      transition:all 0.18s ease;
+      opacity:0.6;
+    }
+    body:hover .cursor { transform:translate(-50%,-50%) scale(1); }
+    a:hover ~ .cursor, button:hover ~ .cursor { transform:translate(-50%,-50%) scale(2.5); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top:0; width:100%; z-index:100;
+      padding: 24px 60px;
+      display: flex; justify-content:space-between; align-items:center;
+      background: rgba(250,250,248,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s;
+    }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight:700;
+      letter-spacing: 0.5px;
+    }
+    .nav-name span { color: var(--gold); font-style:italic; }
+    .nav-links { display:flex; gap:36px; align-items:center; }
+    .nav-links a {
+      color: var(--grey); text-decoration:none;
+      font-size:0.85rem; font-weight:500;
+      letter-spacing:1px; text-transform:uppercase;
+      transition:color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta {
+      background: var(--black); color: var(--white) !important;
+      padding: 10px 24px; border-radius:50px;
+      font-size:0.8rem !important; letter-spacing:1.5px !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; transform:translateY(-1px); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height:100vh;
+      display:flex; align-items:center;
+      padding: 120px 60px 80px;
+      position:relative; overflow:hidden;
+    }
+    .hero-bg-text {
+      position:absolute; right:-60px; top:50%;
+      transform:translateY(-50%);
+      font-family:'Playfair Display',serif;
+      font-size:clamp(180px,22vw,320px);
+      font-weight:900; color:transparent;
+      -webkit-text-stroke: 1px rgba(0,0,0,0.06);
+      line-height:1; pointer-events:none;
+      user-select:none; white-space:nowrap;
+      animation: driftRight 20s ease-in-out infinite alternate;
+    }
+    @keyframes driftRight { from{transform:translateY(-50%) translateX(0)} to{transform:translateY(-50%) translateX(20px)} }
+
+    .hero-content { position:relative; z-index:1; max-width:760px; }
+    .hero-tag {
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--border);
+      padding:6px 18px; border-radius:50px;
+      font-size:0.75rem; letter-spacing:2px; text-transform:uppercase;
+      color:var(--grey); margin-bottom:40px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag::before { content:''; width:6px; height:6px; background:var(--gold); border-radius:50%; }
+
+    .hero h1 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(52px,7vw,96px);
+      line-height:1.05; font-weight:900;
+      margin-bottom:32px;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .hero h1 em { font-style:italic; color:var(--gold); }
+    .hero h1 .line2 { display:block; }
+
+    .hero-sub {
+      font-size:1.1rem; color:var(--grey);
+      line-height:1.8; max-width:540px;
+      margin-bottom:48px; font-weight:300;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+    .hero-sub strong { color:var(--black); font-weight:600; }
+
+    .hero-btns {
+      display:flex; gap:16px; flex-wrap:wrap;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+    .btn-dark {
+      background:var(--black); color:var(--white);
+      padding:16px 36px; border-radius:50px;
+      text-decoration:none; font-weight:600;
+      font-size:0.9rem; letter-spacing:0.5px;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn-dark:hover { background:var(--gold); color:var(--black); transform:translateY(-2px); box-shadow:0 12px 32px rgba(245,166,35,0.25); }
+    .btn-ghost {
+      border:1.5px solid var(--black); color:var(--black);
+      padding:16px 36px; border-radius:50px;
+      text-decoration:none; font-weight:600; font-size:0.9rem;
+      transition:all 0.2s;
+    }
+    .btn-ghost:hover { background:var(--black); color:var(--white); transform:translateY(-2px); }
+
+    /* Photo float */
+    .hero-photo {
+      position:absolute; right:60px; top:50%;
+      transform:translateY(-50%);
+      width:clamp(260px,28vw,380px);
+      animation: fadeUp 0.8s ease 0.4s both;
+    }
+    .hero-photo-wrap {
+      position:relative; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+      overflow:hidden; aspect-ratio:3/4;
+      box-shadow: 20px 30px 60px rgba(0,0,0,0.15);
+      border:4px solid var(--gold);
+    }
+    .hero-photo-wrap img { width:100%; height:100%; object-fit:cover; object-position:top; }
+    .hero-photo-badge {
+      position:absolute; bottom:-16px; left:50%; transform:translateX(-50%);
+      background:var(--black); color:var(--white);
+      padding:10px 24px; border-radius:50px;
+      font-size:0.75rem; letter-spacing:2px; text-transform:uppercase;
+      white-space:nowrap; font-weight:600;
+      border:2px solid var(--gold);
     }
 
-    .hero-text {
-      line-height: .92;
-      letter-spacing: -0.06em;
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)} }
+
+    /* ── Marquee ── */
+    .marquee-wrap {
+      background:var(--black); padding:18px 0;
+      overflow:hidden; border-top:3px solid var(--gold);
     }
-
-    .glass-card {
-      backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(0,0,0,0.06);
+    .marquee-inner {
+      display:flex; gap:60px; width:max-content;
+      animation:marquee 25s linear infinite;
     }
-
-    .soft-shadow {
-      box-shadow:
-      0 10px 40px rgba(0,0,0,.08);
+    .marquee-inner span {
+      font-family:'Playfair Display',serif;
+      font-size:1rem; color:var(--white);
+      letter-spacing:2px; white-space:nowrap; font-style:italic;
     }
+    .marquee-inner .dot { color:var(--gold); font-style:normal; font-size:1.2rem; }
+    @keyframes marquee { from{transform:translateX(0)}to{transform:translateX(-50%)} }
 
-    .gradient-ring {
-      background:
-      linear-gradient(135deg,#f59e0b,#111827);
-      padding: 4px;
-      border-radius: 32px;
+    /* ── Section base ── */
+    section { padding:100px 60px; }
+    .section-label {
+      font-size:0.7rem; letter-spacing:4px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:12px; font-weight:600;
     }
-
-    .section-space {
-      padding: 8rem 1.5rem;
+    .section-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(36px,5vw,64px);
+      font-weight:900; line-height:1.1;
+      margin-bottom:60px;
     }
+    .section-title em { font-style:italic; color:var(--gold); }
 
-    @media(max-width:768px){
-      .section-space{
-        padding:5rem 1.5rem;
-      }
+    /* ── About ── */
+    .about { background:var(--off); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-text p { color:var(--grey); line-height:1.9; font-size:1rem; margin-bottom:20px; font-weight:300; }
+    .about-text p strong { color:var(--black); font-weight:600; }
+    .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px; }
+    .stat { background:var(--white); padding:28px 24px; border-left:3px solid var(--gold); }
+    .stat-num { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:900; color:var(--black); line-height:1; }
+    .stat-label { font-size:0.75rem; color:var(--grey); letter-spacing:1px; margin-top:4px; }
+    .about-img { position:relative; }
+    .about-img-wrap {
+      border-radius:8px; overflow:hidden;
+      box-shadow:24px 24px 0 var(--gold);
+      aspect-ratio:4/5;
+    }
+    .about-img-wrap img { width:100%; height:100%; object-fit:cover; object-position:top; }
+    .about-badge {
+      position:absolute; top:24px; right:-20px;
+      background:var(--black); color:var(--white);
+      padding:16px 20px; border-radius:4px;
+      font-size:0.75rem; text-align:center; line-height:1.5;
+      border-left:3px solid var(--gold);
+    }
+    .about-badge strong { display:block; font-size:1.4rem; font-family:'Playfair Display',serif; color:var(--gold); }
 
-      .hero-text{
-        line-height:1;
-      }
+    /* ── Services ── */
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2px; }
+    .service-card {
+      background:var(--off); padding:48px 36px;
+      position:relative; overflow:hidden;
+      transition:background 0.3s, transform 0.3s;
+      border-bottom:3px solid transparent;
+    }
+    .service-card:hover { background:var(--black); transform:translateY(-4px); border-bottom-color:var(--gold); }
+    .service-card:hover .service-name { color:var(--white); }
+    .service-card:hover .service-desc { color:rgba(255,255,255,0.55); }
+    .service-card:hover .service-num { color:rgba(255,255,255,0.1); }
+    .service-num {
+      font-family:'Playfair Display',serif;
+      font-size:5rem; font-weight:900;
+      color:rgba(0,0,0,0.06); line-height:1;
+      margin-bottom:20px; transition:color 0.3s;
+    }
+    .service-icon { font-size:2rem; margin-bottom:16px; }
+    .service-name { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:12px; transition:color 0.3s; }
+    .service-desc { color:var(--grey); font-size:0.875rem; line-height:1.7; transition:color 0.3s; }
+
+    /* ── Work ── */
+    .work { background:var(--off); }
+    .work-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:24px; }
+    .work-card {
+      background:var(--white); border-radius:4px;
+      overflow:hidden; transition:transform 0.3s, box-shadow 0.3s;
+      text-decoration:none; color:var(--black);
+      border:1px solid var(--border);
+    }
+    .work-card:hover { transform:translateY(-8px); box-shadow:0 24px 60px rgba(0,0,0,0.12); }
+    .work-card-img {
+      height:220px; display:flex; align-items:center;
+      justify-content:center; font-size:4rem;
+      background:var(--black); position:relative;
+      overflow:hidden;
+    }
+    .work-card-img .work-overlay {
+      position:absolute; inset:0; background:var(--gold);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; transition:opacity 0.3s;
+      font-size:1rem; font-weight:700; color:var(--black);
+      letter-spacing:2px; text-transform:uppercase;
+    }
+    .work-card:hover .work-overlay { opacity:1; }
+    .work-card-body { padding:28px; }
+    .work-tag {
+      display:inline-block; background:rgba(245,166,35,0.15);
+      color:var(--gold); padding:4px 12px; border-radius:50px;
+      font-size:0.7rem; font-weight:600; letter-spacing:1px;
+      text-transform:uppercase; margin-bottom:12px;
+    }
+    .work-title { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; margin-bottom:8px; }
+    .work-desc { color:var(--grey); font-size:0.875rem; line-height:1.7; }
+
+    /* ── Process ── */
+    .process-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0; position:relative; }
+    .process-steps::before {
+      content:''; position:absolute; top:32px; left:0; right:0; height:1px;
+      background:var(--border);
+    }
+    .process-step { padding:0 32px 0 0; position:relative; }
+    .step-num {
+      width:64px; height:64px; background:var(--white);
+      border:2px solid var(--gold); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900;
+      color:var(--gold); margin-bottom:24px; position:relative; z-index:1;
+    }
+    .step-title { font-weight:700; font-size:1rem; margin-bottom:8px; }
+    .step-desc { color:var(--grey); font-size:0.875rem; line-height:1.7; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background:var(--black); padding:120px 60px;
+      text-align:center; position:relative; overflow:hidden;
+    }
+    .cta-section::before {
+      content:'⚡'; position:absolute;
+      font-size:400px; opacity:0.03;
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+    .cta-section .section-title { color:var(--white); margin-bottom:20px; }
+    .cta-section .section-title em { color:var(--gold); }
+    .cta-sub { color:rgba(255,255,255,0.5); font-size:1.1rem; margin-bottom:48px; font-weight:300; }
+    .cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .btn-gold {
+      background:var(--gold); color:var(--black);
+      padding:18px 40px; border-radius:50px;
+      text-decoration:none; font-weight:700; font-size:1rem;
+      transition:transform 0.2s, box-shadow 0.2s;
+      display:inline-flex; align-items:center; gap:10px;
+    }
+    .btn-gold:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(245,166,35,0.35); }
+    .btn-white {
+      border:1.5px solid rgba(255,255,255,0.2); color:var(--white);
+      padding:18px 40px; border-radius:50px;
+      text-decoration:none; font-weight:500; font-size:1rem;
+      transition:all 0.2s; display:inline-flex; align-items:center; gap:10px;
+    }
+    .btn-white:hover { border-color:var(--gold); color:var(--gold); }
+
+    /* ── Footer ── */
+    footer {
+      background:var(--off); padding:60px;
+      border-top:1px solid var(--border);
+    }
+    .footer-top {
+      display:flex; justify-content:space-between;
+      align-items:flex-start; flex-wrap:wrap; gap:40px;
+      margin-bottom:48px;
+    }
+    .footer-brand .name {
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem; font-weight:900; margin-bottom:8px;
+    }
+    .footer-brand .name span { color:var(--gold); font-style:italic; }
+    .footer-brand p { color:var(--grey); font-size:0.875rem; max-width:280px; line-height:1.7; }
+    .footer-links h4 {
+      font-size:0.7rem; letter-spacing:3px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:20px; font-weight:600;
+    }
+    .footer-links a {
+      display:block; color:var(--grey); text-decoration:none;
+      font-size:0.875rem; margin-bottom:12px; transition:color 0.2s;
+    }
+    .footer-links a:hover { color:var(--black); }
+    .footer-bottom {
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:12px; padding-top:32px;
+      border-top:1px solid var(--border);
+    }
+    .footer-bottom p { color:var(--grey); font-size:0.8rem; }
+    .socials { display:flex; gap:14px; }
+    .socials a {
+      width:38px; height:38px; background:var(--white);
+      border:1px solid var(--border); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--grey); text-decoration:none; font-size:0.9rem;
+      transition:all 0.2s;
+    }
+    .socials a:hover { background:var(--black); color:var(--gold); border-color:var(--black); transform:translateY(-2px); }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity:0; transform:translateY(32px); transition:opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── Mobile ── */
+    @media(max-width:900px){
+      nav{padding:18px 24px;}
+      .nav-links{display:none;}
+      .hero{padding:100px 24px 60px;flex-direction:column;}
+      .hero-photo{position:relative;right:auto;top:auto;transform:none;width:100%;max-width:300px;margin:40px auto 0;}
+      .hero-bg-text{display:none;}
+      section{padding:70px 24px;}
+      .about-grid{grid-template-columns:1fr;gap:40px;}
+      .about-badge{right:0;}
+      .cta-section{padding:80px 24px;}
+      footer{padding:40px 24px;}
+      .footer-top{flex-direction:column;}
     }
   </style>
 </head>
-
 <body>
 
-<div class="grain"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
 
-<!-- NAV -->
-<header class="fixed top-0 left-0 w-full z-50">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-
-    <div class="flex items-center gap-3">
-      <img src="klutch-logo.png"
-           class="w-11 h-11 object-contain"
-           alt="Klutch Logo">
-
-      <div>
-        <h2 class="font-bold text-lg">
-          Adetunji
-        </h2>
-        <p class="text-xs text-gray-500">
-          Builder • Creator
-        </p>
-      </div>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-name">Adetunji <span>Odusami</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#contact" class="nav-cta">Work With Me</a>
     </div>
+  </nav>
 
-    <a href="#contact"
-      class="bg-black text-white px-6 py-3 rounded-full text-sm hover:bg-orange-500 transition">
-      Contact Me
-    </a>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="min-h-screen flex items-center relative overflow-hidden">
-
-  <!-- background shape -->
-  <div class="absolute top-[-100px] right-[-80px]
-              w-[400px] h-[400px]
-              bg-orange-200 rounded-full blur-[120px]
-              opacity-50">
-  </div>
-
-  <div class="max-w-7xl mx-auto px-6 pt-32 grid lg:grid-cols-2 gap-16 items-center relative z-10">
-
-    <!-- LEFT -->
-    <div>
-
-      <div class="inline-flex items-center gap-2
-                  bg-white border border-gray-200
-                  px-5 py-2 rounded-full mb-8 soft-shadow">
-
-        <div class="w-2 h-2 rounded-full bg-green-500"></div>
-
-        <span class="text-sm text-gray-700">
-          Founder of Klutch Konnect
-        </span>
-      </div>
-
-      <h1 class="hero-text text-[4.2rem] md:text-[7rem] font-bold">
-
-        Building<br>
-        ideas into<br>
-        <span class="text-orange-500">
-          scalable systems
-        </span>
-
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-text">TUNJI</div>
+    <div class="hero-content">
+      <div class="hero-tag">Available for Projects · Lagos, Nigeria</div>
+      <h1>
+        Let's bring<br>
+        your vision
+        <span class="line2">to <em>life.</em></span>
       </h1>
-
-      <p class="mt-8 text-xl text-gray-600 max-w-xl leading-relaxed">
-
-        I design systems, brands, and digital
-        experiences that turn ambitious ideas
-        into real businesses.
-
+      <p class="hero-sub">
+        I'm <strong>Adetunji Daniel Odusami</strong> — Founder of Klutch Konnect,
+        Builder & AI Enthusiast. I turn ideas into scalable systems that
+        <strong>perform under pressure.</strong>
       </p>
-
-      <div class="flex flex-wrap gap-4 mt-10">
-
-        <a href="#contact"
-          class="bg-black text-white
-                 px-8 py-4 rounded-full
-                 hover:bg-orange-500 transition">
-
-          Work With Me
-
-        </a>
-
-        <a href="#projects"
-          class="border border-gray-300
-                 px-8 py-4 rounded-full
-                 hover:bg-gray-100 transition">
-
-          View Work
-
-        </a>
-
-      </div>
-
-      <!-- SOCIALS -->
-      <div class="flex items-center gap-6 mt-12 text-2xl">
-
-        <a href="https://instagram.com/_tvnji"
-          class="hover:text-orange-500 transition">
-
-          <i class="fab fa-instagram"></i>
-
-        </a>
-
-        <a href="https://x.com/_tvnji"
-          class="hover:text-orange-500 transition">
-
-          <i class="fab fa-x-twitter"></i>
-
-        </a>
-
-        <a href="https://snapchat.com/add/txnji"
-          class="hover:text-orange-500 transition">
-
-          <i class="fab fa-snapchat"></i>
-
-        </a>
-
+      <div class="hero-btns">
+        <a href="#work" class="btn-dark"><i class="fa-solid fa-arrow-down"></i> See My Work</a>
+        <a href="#contact" class="btn-ghost">Let's Talk</a>
       </div>
     </div>
-
-    <!-- RIGHT -->
-    <div class="relative flex justify-center">
-
-      <!-- floating card -->
-      <div class="absolute top-10 left-0
-                  glass-card p-5 rounded-3xl
-                  soft-shadow hidden md:block">
-
-        <p class="text-sm text-gray-500">
-          Currently Building
-        </p>
-
-        <h4 class="font-semibold mt-2">
-          Klutch Konnect Ecosystem
-        </h4>
-
+    <div class="hero-photo">
+      <div class="hero-photo-wrap">
+        <img src="tunji_photo.png" alt="Adetunji Odusami">
       </div>
-
-      <!-- image -->
-      <div class="gradient-ring soft-shadow">
-
-        <img src="headshot.jpg"
-          alt="Adetunji Odusami"
-          class="w-[360px] h-[500px]
-                 object-cover rounded-[28px]">
-
-      </div>
-
+      <div class="hero-photo-badge">⚡ Clutch Under Pressure</div>
     </div>
+  </section>
 
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span>Web Design</span><span class="dot">·</span>
+      <span>Brand Identity</span><span class="dot">·</span>
+      <span>AI Integration</span><span class="dot">·</span>
+      <span>Business Strategy</span><span class="dot">·</span>
+      <span>E-Commerce</span><span class="dot">·</span>
+      <span>Financial Modeling</span><span class="dot">·</span>
+      <span>Logistics Systems</span><span class="dot">·</span>
+      <span>Web Design</span><span class="dot">·</span>
+      <span>Brand Identity</span><span class="dot">·</span>
+      <span>AI Integration</span><span class="dot">·</span>
+      <span>Business Strategy</span><span class="dot">·</span>
+      <span>E-Commerce</span><span class="dot">·</span>
+      <span>Financial Modeling</span><span class="dot">·</span>
+      <span>Logistics Systems</span><span class="dot">·</span>
+    </div>
   </div>
-</section>
 
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Builder.<br><em>Designer.</em><br>Strategist.</h2>
+        <p>I'm an independent <strong>graphic and web designer</strong> who's eager to integrate creative and innovative designs into your personal or professional projects. I don't just build things — I build things that <strong>work under pressure.</strong></p>
+        <p>As Founder & CEO of <strong>Klutch Konnect Ltd</strong> (RC 9207504), I've bootstrapped a multi-arm ecosystem linking agriculture, logistics, youth sports and elite networking from the ground up — all while building the digital systems that power it.</p>
+        <p>I bring that same founder-level thinking to every client project.</p>
+        <div class="about-stats">
+          <div class="stat"><div class="stat-num">7+</div><div class="stat-label">Years Building</div></div>
+          <div class="stat"><div class="stat-num">₦2.5M+</div><div class="stat-label">Bootstrapped</div></div>
+          <div class="stat"><div class="stat-num">4</div><div class="stat-label">Business Arms</div></div>
+          <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Ideas to Execute</div></div>
+        </div>
+      </div>
+      <div class="about-img reveal">
+        <div class="about-img-wrap">
+          <img src="tunji_photo.png" alt="Adetunji Odusami">
+        </div>
+        <div class="about-badge">
+          <strong>BSc</strong>Computer Science<br>Klutch Konnect Ltd
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-label reveal">What I Do</p>
+    <h2 class="section-title reveal">Services <em>Offered</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-icon">🌐</div>
+        <div class="service-name">Website Design & Development</div>
+        <p class="service-desc">Modern, fast, conversion-focused websites and e-commerce platforms built with clean design and strong user experience.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">02</div>
+        <div class="service-icon">⚡</div>
+        <div class="service-name">Brand Design & Identity</div>
+        <p class="service-desc">Logos, visual systems, full brand collateral. I build brands that command attention and communicate authority.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <div class="service-icon">🤖</div>
+        <div class="service-name">AI Integration</div>
+        <p class="service-desc">Applying AI tools to business processes and content creation. Business strategy and innovative working systems powered by artificial intelligence.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <div class="service-icon">🎨</div>
+        <div class="service-name">Graphic Design</div>
+        <p class="service-desc">Social media assets, packaging, marketing materials, pitch decks and investor presentations that win.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work" id="work">
+    <p class="section-label reveal">Portfolio</p>
+    <h2 class="section-title reveal">Recent <em>Work</em></h2>
+    <div class="work-grid">
+      <a href="https://tunjiodus93-ops.github.io/Klutch-Website/" target="_blank" class="work-card reveal">
+        <div class="work-card-img" style="background:#0A0A0A;">
+          <img src="klutch_logo.png" alt="Klutch" style="height:80px;object-fit:contain;" onerror="this.style.fontSize='4rem';this.innerHTML='⚡'">
+          <div class="work-overlay">View Live →</div>
+        </div>
+        <div class="work-card-body">
+          <span class="work-tag">Full Ecosystem</span>
+          <div class="work-title">Klutch Konnect Ecosystem</div>
+          <p class="work-desc">Full brand identity, financial modeling, website & operational systems for a multi-arm agribusiness & logistics company. Live and generating revenue.</p>
+        </div>
+      </a>
+      <div class="work-card reveal">
+        <div class="work-card-img" style="background:#1A1A2E;">
+          <span style="font-size:4rem">🎙️</span>
+          <div class="work-overlay">Coming Soon</div>
+        </div>
+        <div class="work-card-body">
+          <span class="work-tag">Coming Soon</span>
+          <div class="work-title">7 PM in Gidi Podcast</div>
+          <p class="work-desc">Sports podcast concept, branding and content strategy covering NBA, NFL & Naija angle. Full brand identity in development.</p>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <div class="work-card-img" style="background:#0D1117;">
+          <span style="font-size:4rem; font-family:monospace; color:#4ade80; font-size:2rem;">{"code"}</span>
+          <div class="work-overlay">In Progress</div>
+        </div>
+        <div class="work-card-body">
+          <span class="work-tag">Web Development</span>
+          <div class="work-title">Personal & Client Websites</div>
+          <p class="work-desc">Modern portfolio and e-commerce websites built with clean design and strong user experience. Available for new projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <p class="section-label reveal">How I Work</p>
+    <h2 class="section-title reveal">The <em>Process</em></h2>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Discovery</div>
+        <p class="step-desc">We talk. I listen. I understand your vision, goals, audience and what success looks like for your project.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-title">Strategy</div>
+        <p class="step-desc">I map out the approach — design direction, tech stack, timeline and deliverables. No surprises.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-title">Build</div>
+        <p class="step-desc">I build fast and iterate. You see progress regularly. Feedback shapes the final product.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-title">Launch</div>
+        <p class="step-desc">We go live. I hand over everything clean, documented and ready. Support available after delivery.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <p class="section-label" style="color:rgba(245,166,35,0.7);">Let's Create Together</p>
+    <h2 class="section-title">Ready to bring your<br><em>vision to life?</em></h2>
+    <p class="cta-sub">I'm currently open to select collaborations and projects.<br>Let's build something great together.</p>
+    <div class="cta-btns">
+      <a href="mailto:tunjiodus93@icloud.com" class="btn-gold">
+        <i class="fa-solid fa-envelope"></i> Email Me
+      </a>
+      <a href="https://wa.me/2348127140217" target="_blank" class="btn-white">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+    <div style="margin-top:48px;display:flex;justify-content:center;gap:16px;">
+      <a href="https://www.instagram.com/klutchkonnectltd" target="_blank" class="socials" style="display:flex;gap:14px;text-decoration:none;">
+        <span style="width:44px;height:44px;border:1px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem;transition:all 0.2s;" onmouseover="this.style.borderColor='#F5A623';this.style.color='#F5A623'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'"><i class="fab fa-instagram"></i></span>
+      </a>
+      <a href="https://x.com/klutchkonnectlt" target="_blank" style="text-decoration:none;">
+        <span style="width:44px;height:44px;border:1px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem;transition:all 0.2s;" onmouseover="this.style.borderColor='#F5A623';this.style.color='#F5A623'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'"><i class="fab fa-x-twitter"></i></span>
+      </a>
+      <a href="https://www.tiktok.com/@klutchkonnecthold" target="_blank" style="text-decoration:none;">
+        <span style="width:44px;height:44px;border:1px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem;transition:all 0.2s;" onmouseover="this.style.borderColor='#F5A623';this.style.color='#F5A623'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'"><i class="fab fa-tiktok"></i></span>
+      </a>
+      <a href="https://linkedin.com/in/adetunjiodusami" target="_blank" style="text-decoration:none;">
+        <span style="width:44px;height:44px;border:1px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1rem;transition:all 0.2s;" onmouseover="this.style.borderColor='#F5A623';this.style.color='#F5A623'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.5)'"><i class="fab fa-linkedin-in"></i></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="name">Adetunji <span>Odusami</span></div>
+        <p>Builder · Designer · AI Enthusiast<br>Founder, Klutch Konnect Ltd · Lagos, Nigeria</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <a href="#services">Website Design</a>
+        <a href="#services">Brand Identity</a>
+        <a href="#services">AI Integration</a>
+        <a href="#services">Graphic Design</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <a href="mailto:tunjiodus93@icloud.com">tunjiodus93@icloud.com</a>
+        <a href="tel:+2348127140217">+234 812 714 0217</a>
+        <a href="https://wa.me/2348127140217">WhatsApp</a>
+        <a href="https://klutchkonnect.com" target="_blank">Klutch Konnect →</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Adetunji Daniel Odusami · All rights reserved</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/klutchkonnectltd" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/klutchkonnectlt" target="_blank"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.tiktok.com/@klutchkonnecthold" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://linkedin.com/in/adetunjiodusami" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Custom cursor ──
+    const cursor     = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX; my=e.clientY;
+      cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+    });
+    function animateRing(){
+      rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+      cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a,button').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ cursor.style.transform='translate(-50%,-50%) scale(2.5)'; cursor.style.background='#F5A623'; });
+      el.addEventListener('mouseleave',()=>{ cursor.style.transform='translate(-50%,-50%) scale(1)'; cursor.style.background='#F5A623'; });
+    });
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach((e,i)=>{
+        if(e.isIntersecting){
+          setTimeout(()=>e.target.classList.add('visible'), i*80);
+        }
+      });
+    },{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // ── Nav shrink on scroll ──
+    window.addEventListener('scroll',()=>{
+      document.querySelector('nav').style.padding = window.scrollY>50 ? '14px 60px' : '24px 60px';
+    });
+  </script>
 </body>
 </html>
